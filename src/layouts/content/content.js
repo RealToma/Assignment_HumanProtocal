@@ -12,7 +12,7 @@ const Content = () => {
   const [meows, setMeows] = useState();
 
   const [stringMessage, setMessage] = useState("");
-  const { account, library } = useWeb3React();
+  const { active, library } = useWeb3React();
 
   const contractCAT = useMemo(
     () =>
@@ -57,6 +57,12 @@ const Content = () => {
       NotificationManager.warn("Failed", 3000);
     }
   };
+
+  useEffect(() => {
+    if (active) {
+      handleGetMeows();
+    }
+  }, [active]);
 
   return (
     <StyledComponent>
