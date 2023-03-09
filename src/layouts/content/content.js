@@ -22,21 +22,21 @@ const Content = () => {
     [library]
   );
 
-  const mint_erc20 = async () => {
+  const handleSetMeows = async () => {
     try {
       console.log(stringMessage);
       const mint = await contractCAT.sayMeow();
       await mint.wait();
-      get_ts_erc20();
+      handleGetMeows();
     } catch (e) {
       console.log(e);
     }
   };
 
-  const get_ts_erc20 = async () => {
+  const handleGetMeows = async () => {
     try {
       let temp_ts = await contractCAT.getAllMeows();
-      setMeows();
+      setMeows(temp_ts);
     } catch (e) {
       console.log(e);
     }
@@ -77,7 +77,9 @@ const Content = () => {
                 justifyContent={"center"}
                 alignItems={"center"}
                 mr={"20px"}
-                onClick={() => {}}
+                onClick={() => {
+                  handleSetMeows();
+                }}
               >
                 <CustomBtn
                   width={"100%"}
@@ -109,16 +111,10 @@ const Content = () => {
           width={"100%"}
         >
           <LeftMintMox>
-            <TitleText01>Transaction Summary</TitleText01>
-            <SupplyMintBox>
-              <TitleText02>Token Rate : 1 ETH = 1000 THEV</TitleText02>
-            </SupplyMintBox>
-            <SupplyMintBox>
-              <TitleText02>Total Tokens : {meows}</TitleText02>
-            </SupplyMintBox>
-            <SupplyMintBox>
-              <TitleText02>Total USD : {meows}</TitleText02>
-            </SupplyMintBox>
+            <TitleText01>Read Contract</TitleText01>
+            <SubjectBox>
+              <TitleText02>Display Meows : {meows}</TitleText02>
+            </SubjectBox>
             <Box
               display={"flex"}
               width={"100%"}
@@ -151,9 +147,7 @@ const Content = () => {
                 flex={"1"}
                 justifyContent={"center"}
                 alignItems={"center"}
-                onClick={() => {
-                  mint_erc20();
-                }}
+                onClick={() => {}}
               >
                 <CustomBtn
                   width={"100%"}
@@ -212,28 +206,6 @@ const LeftMintMox = styled(Box)`
   }
 `;
 
-const RightMintBox = styled(Box)`
-  display: flex;
-  width: 70%;
-  flex-direction: column;
-  justify-content: center;
-  background-color: #da3282;
-  border-radius: 8px;
-  border: none;
-  outline: none;
-  color: white;
-  transition: 0.3s;
-  &:hover {
-    box-shadow: 0px 0px 20px white;
-  }
-  @media (max-width: 1600px) {
-    width: 85% !important;
-  }
-  @media (max-width: 1200px) {
-    width: 95% !important;
-  }
-`;
-
 const TitleText01 = styled(Box)`
   display: flex;
   justify-content: flex-start;
@@ -268,20 +240,8 @@ const Input01 = styled(Box)`
   font-size: 1.2rem;
   font-weight: 400;
 `;
-const Input02 = styled(Box)`
-  display: flex;
-  width: 45%;
-  margin-left: 5%;
-  justify-content: center;
-  align-items: center;
-  height: 30px;
-  border: 1px solid #331393;
-  border-radius: 5px;
-  font-size: 1.2rem;
-  font-weight: 400;
-`;
 
-const SupplyMintBox = styled(Box)`
+const SubjectBox = styled(Box)`
   display: flex;
   align-items: center;
   margin-top: 40px;
