@@ -3,10 +3,11 @@ import styled from "styled-components";
 import React, { useEffect, useState, useMemo } from "react";
 import CustomBtn from "../../components/CustomBtn";
 import { useWeb3React } from "@web3-react/core";
-import { NotificationManager } from "react-notifications";
 import { ethers } from "ethers";
 import { CONTRACTS } from "../../utils/constants";
 import { abiCAT } from "../../utils/abi";
+import { NotificationManager } from "react-notifications";
+import "react-notifications/lib/notifications.css";
 
 const Content = () => {
   const [meows, setMeows] = useState();
@@ -27,11 +28,11 @@ const Content = () => {
       console.log(stringMessage);
       const resSayMeow = await contractCAT.sayMeow(stringMessage);
       await resSayMeow.wait();
-      NotificationManager.success("Successed added.", 3000);
+      NotificationManager.success("Successed added.", "", 3000);
       handleGetMeows();
     } catch (e) {
       console.log(e);
-      NotificationManager.warn("Failed", 3000);
+      NotificationManager.warn("Failed", "", 3000);
     }
   };
 
@@ -52,9 +53,10 @@ const Content = () => {
       // }
       // console.log(resGetAllMeows);
       setMeows(resGetAllMeows);
+      NotificationManager.success("Updated, check again.", "", 3000);
     } catch (e) {
       console.log(e);
-      NotificationManager.warn("Failed", 3000);
+      NotificationManager.warn("Failed", "", 3000);
     }
   };
 
