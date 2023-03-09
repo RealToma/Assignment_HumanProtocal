@@ -5,8 +5,8 @@ import Navbar from "./layouts/navbar/navbar";
 import Content from "./layouts/content/content";
 import { Web3ReactProvider } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
-import Back from "./assets/03.jpg";
-import Particles from "react-tsparticles";
+// import Particles from "react-tsparticles";
+import { NotificationContainer } from 'react-notifications';
 
 function getLibrary(provider) {
   const library = new Web3Provider(provider);
@@ -103,7 +103,10 @@ function App() {
           /> */}
           <Navbar />
           <Content />
+          
+          <NotificationContainer />
         </StyledComponent>
+
       </Web3ReactProvider>
     </>
   );
@@ -114,10 +117,6 @@ const StyledComponent = styled(Box)`
   flex-direction: column;
   width: 100%;
   height: 100vh;
-  /* background-image: url(${Back}); */
-  /* background-size: 100% 100%; */
-  /* background-repeat: no-repeat; */
-  /* background-color: #F9F9F9; */
   background: black;
 `;
 export default App;

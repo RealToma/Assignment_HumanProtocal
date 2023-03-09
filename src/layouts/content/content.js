@@ -3,7 +3,7 @@ import styled from "styled-components";
 import React, { useEffect, useState, useMemo } from "react";
 import CustomBtn from "../../components/CustomBtn";
 import { useWeb3React } from "@web3-react/core";
-
+import { NotificationManager } from "react-notifications";
 import { ethers } from "ethers";
 import { CONTRACTS } from "../../utils/constants";
 import { abiCAT } from "../../utils/abi";
@@ -27,15 +27,22 @@ const Content = () => {
       console.log(stringMessage);
       const resSayMeow = await contractCAT.sayMeow(stringMessage);
       await resSayMeow.wait();
+      NotificationManager.success("Successed added.", 3000);
       handleGetMeows();
     } catch (e) {
       console.log(e);
+      NotificationManager.warn("Failed", 3000);
     }
+  };
+
+  const formatAddress = (addr) => {
+    return addr.slice(0, 6) + "..." + addr.slice(-4);
   };
 
   const handleGetMeows = async () => {
     try {
       let resGetAllMeows = await contractCAT.getAllMeows();
+      // get owned meows
       // let tempMeows = [];
       // for (let i = 0; i < Object.keys(resGetAllMeows).length; i++) {
       //   let temp = resGetAllMeows[i];
@@ -47,6 +54,7 @@ const Content = () => {
       setMeows(resGetAllMeows);
     } catch (e) {
       console.log(e);
+      NotificationManager.warn("Failed", 3000);
     }
   };
 
@@ -126,8 +134,18 @@ const Content = () => {
             <SectionDisplayMeows>
               {meows?.map((each, index) => {
                 return (
-                  <TextList01 key={index}>
-                    {index + 1}: {each}
+                  <TextList01
+                    key={index}
+                    borderBottom={
+                      index === meows.length - 1
+                        ? "unset"
+                        : "1px dashed solid grey"
+                    }
+                  >
+                    {index + 1}: {each[0]}, {"\u00a0"}
+                    <span style={{ color: "black" }}>
+                      {formatAddress(each[1])}
+                    </span>
                   </TextList01>
                 );
               })}
@@ -220,7 +238,9 @@ const TextList01 = styled(Box)`
   align-items: center;
   font-size: 1.3rem;
   font-weight: 300;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid grey;
 `;
 
 const TitleText02 = styled(Box)`
@@ -245,7 +265,6 @@ const Input01 = styled(Box)`
   justify-content: center;
   align-items: center;
   height: 30px;
-  border: 1px solid #331393;
   border-radius: 5px;
   font-size: 1.2rem;
   font-weight: 400;
@@ -261,7 +280,9 @@ const SectionDisplayMeows = styled(Box)`
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-top: 10px;
+  height: 200px;
+  margin-top: 20px;
+  overflow-y: auto;
 `;
 
 export default Content;
