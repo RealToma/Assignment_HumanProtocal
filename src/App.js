@@ -19,7 +19,7 @@ function App() {
     <>
       <Web3ReactProvider getLibrary={getLibrary}>
         <StyledComponent>
-          <Particles
+          {/* <Particles
             id="tsparticles"
             options={{
               // background: {
@@ -100,7 +100,7 @@ function App() {
               },
               detectRetina: false,
             }}
-          />
+          /> */}
           <Navbar />
           <Content />
         </StyledComponent>
@@ -113,7 +113,7 @@ const StyledComponent = styled(Box)`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   /* background-image: url(${Back}); */
   /* background-size: 100% 100%; */
   /* background-repeat: no-repeat; */

@@ -25,8 +25,8 @@ const Content = () => {
   const handleSetMeows = async () => {
     try {
       console.log(stringMessage);
-      const mint = await contractCAT.sayMeow();
-      await mint.wait();
+      const resSayMeow = await contractCAT.sayMeow(stringMessage);
+      await resSayMeow.wait();
       handleGetMeows();
     } catch (e) {
       console.log(e);
@@ -35,8 +35,16 @@ const Content = () => {
 
   const handleGetMeows = async () => {
     try {
-      let temp_ts = await contractCAT.getAllMeows();
-      setMeows(temp_ts);
+      let resGetAllMeows = await contractCAT.getAllMeows();
+      // let tempMeows = [];
+      // for (let i = 0; i < Object.keys(resGetAllMeows).length; i++) {
+      //   let temp = resGetAllMeows[i];
+      //   if (temp[1] === account) {
+      //     tempMeows.push(temp[0]);
+      //   }
+      // }
+      // console.log(resGetAllMeows);
+      setMeows(resGetAllMeows);
     } catch (e) {
       console.log(e);
     }
@@ -84,9 +92,9 @@ const Content = () => {
                 <CustomBtn
                   width={"100%"}
                   height={"50px"}
-                  str={"Reset"}
+                  str={"Say Meows"}
                   fsize={"1.5rem"}
-                  fcolor={"#da3282"}
+                  fcolor={"#5b32da"}
                   bgcolor={"white"}
                   border={"none"}
                   bradius={"8px"}
@@ -113,8 +121,17 @@ const Content = () => {
           <LeftMintMox>
             <TitleText01>Read Contract</TitleText01>
             <SubjectBox>
-              <TitleText02>Display Meows : {meows}</TitleText02>
+              <TitleText02>Display Meows : </TitleText02>
             </SubjectBox>
+            <SectionDisplayMeows>
+              {meows?.map((each, index) => {
+                return (
+                  <TextList01 key={index}>
+                    {index + 1}: {each}
+                  </TextList01>
+                );
+              })}
+            </SectionDisplayMeows>
             <Box
               display={"flex"}
               width={"100%"}
@@ -128,33 +145,16 @@ const Content = () => {
                 justifyContent={"center"}
                 alignItems={"center"}
                 mr={"20px"}
-                onClick={() => {}}
+                onClick={() => {
+                  handleGetMeows();
+                }}
               >
                 <CustomBtn
                   width={"100%"}
                   height={"50px"}
-                  str={"Reset"}
+                  str={"Get All Meows"}
                   fsize={"1.5rem"}
-                  fcolor={"#da3282"}
-                  bgcolor={"white"}
-                  border={"none"}
-                  bradius={"8px"}
-                  fweight={"600"}
-                />
-              </Box>
-              <Box
-                display={"flex"}
-                flex={"1"}
-                justifyContent={"center"}
-                alignItems={"center"}
-                onClick={() => {}}
-              >
-                <CustomBtn
-                  width={"100%"}
-                  height={"50px"}
-                  str={"Buy Now"}
-                  fsize={"1.5rem"}
-                  fcolor={"#da3282"}
+                  fcolor={"#5b32da"}
                   bgcolor={"white"}
                   border={"none"}
                   bradius={"8px"}
@@ -178,7 +178,7 @@ const StyledComponent = styled(Box)`
 
 const MintBox = styled(Box)`
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   width: 100%;
   margin-top: 200px;
 `;
@@ -189,14 +189,14 @@ const LeftMintMox = styled(Box)`
   box-sizing: border-box;
   flex-direction: column;
   justify-content: center;
-  background-color: #da3282;
+  background-color: #5b32da;
   border-radius: 8px;
   border: none;
   outline: none;
   color: white;
   transition: 0.3s;
   &:hover {
-    box-shadow: 0px 0px 20px white;
+    box-shadow: 0px 0px 15px white;
   }
   @media (max-width: 1600px) {
     width: 85% !important;
@@ -213,6 +213,16 @@ const TitleText01 = styled(Box)`
   font-size: 1.5rem;
   font-weight: 600;
 `;
+
+const TextList01 = styled(Box)`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 1.3rem;
+  font-weight: 300;
+  margin-bottom: 5px;
+`;
+
 const TitleText02 = styled(Box)`
   display: flex;
   justify-content: flex-start;
@@ -245,6 +255,13 @@ const SubjectBox = styled(Box)`
   display: flex;
   align-items: center;
   margin-top: 40px;
+`;
+
+const SectionDisplayMeows = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 10px;
 `;
 
 export default Content;

@@ -30,9 +30,9 @@ const Navbar = () => {
   const walletConnectors = DESKTOP_CONNECTORS;
   const { account, active, activate, deactivate } = useWeb3React();
 
-  const set_account_addr = (addr) => {
-    return addr.slice(0, 6) + "..." + addr.slice(-4);
-  };
+  // const set_account_addr = (addr) => {
+  //   return addr.slice(0, 6) + "..." + addr.slice(-4);
+  // };
 
   useEffect(() => {
     const currentWalletState = window.localStorage.getItem(
@@ -188,7 +188,7 @@ const ConnectWalletBtn = styled(Box)`
   font-weight: 600;
   border-radius: 8px;
   border: none;
-  background-color: #da3282;
+  background-color: #5b32da;
   color: white;
   transition: 0.3s;
   user-select: none;
@@ -226,7 +226,7 @@ const ConnectPart = styled(Box)`
   font-size: 16px;
   line-height: 100%;
   letter-spacing: -0.01em;
-  color: #da3282;
+  color: #5b32da;
 
   cursor: pointer;
   user-select: none;
@@ -263,7 +263,7 @@ const ModalBox = styled(Box)`
   width: 350px;
   height: 400px;
   flex-direction: column;
-  background-color: #da3282;
+  background-color: #5b32da;
   border: none;
   position: relative;
   top: 50%;
